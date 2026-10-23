@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ca">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demostra-ho · Step Quiz</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="vendor/katex-0.16.11/katex.min.css">
+    <link rel="stylesheet" href="css/tokens.css?v=e3191254">
+    <link rel="stylesheet" href="css/demostra.css?v=57f9408a">
+</head>
+<body>
+    <header class="capcalera">
+        <h1><a href="index.html">Demostra-ho</a></h1>
+        <a href="index.html" id="torna">Tots els teoremes</a>
+    </header>
+
+    <main class="principal" id="principal">
+        <section class="panell" id="cap-teorema" aria-labelledby="titol">
+            <p class="etiqueta" id="etiqueta"></p>
+            <h2 id="titol"></h2>
+            <p class="enunciat" id="enunciat"></p>
+        </section>
+
+        <div class="pestanyes" role="tablist" aria-label="Esglaons" id="pestanyes">
+            <button type="button" class="pestanya" role="tab" id="tab-veure" aria-controls="veure" data-esglao="veure">1. Veure</button>
+            <button type="button" class="pestanya" role="tab" id="tab-ordenar" aria-controls="ordenar" data-esglao="ordenar">2. Ordenar</button>
+            <button type="button" class="pestanya" role="tab" id="tab-escriure" aria-controls="escriure" data-esglao="escriure">3. Escriure</button>
+        </div>
+
+        <section class="panell" id="veure" role="tabpanel" aria-labelledby="tab-veure" hidden>
+            <div class="veure">
+                <div>
+                    <div class="marc-figura" id="figura"></div>
+                    <div class="control">
+                        <label for="n" id="etiqueta-n">n</label>
+                        <input type="range" id="n" min="1" max="8" step="1" value="4">
+                        <output id="n-valor" for="n"></output>
+                    </div>
+                </div>
+                <div>
+                    <p class="comptador nota" id="pas-de"></p>
+                    <ol class="panells" id="panells"></ol>
+                    <div class="prova-primer" id="prova-primer" hidden>
+                        <p><strong id="prova-primer-titol"></strong> <span id="prova-primer-text"></span></p>
+                        <button type="button" class="btn btn-petit" id="btn-pensat"></button>
+                    </div>
+                    <div class="accions">
+                        <button type="button" class="btn" id="btn-anterior"></button>
+                        <button type="button" class="btn btn-principal" id="btn-seguent"></button>
+                        <button type="button" class="btn" id="btn-projector" aria-pressed="false"></button>
+                    </div>
+                    <div class="accions" id="accions-veure"></div>
+                    <p class="credit" id="credit"></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="panell" id="ordenar" role="tabpanel" aria-labelledby="tab-ordenar" hidden>
+            <div class="nivells" id="nivells" role="group" aria-label="Nivell"></div>
+            <p class="nota" id="nivell-desc"></p>
+            <p class="instruccio" id="instr-ordenar"></p>
+            <div class="columnes">
+                <div class="columna" id="col-peces">
+                    <h3 id="t-peces"></h3>
+                    <ul class="llista-blocs" id="peces" aria-labelledby="t-peces"></ul>
+                </div>
+                <div class="columna" id="col-demo">
+                    <h3 id="t-demo"></h3>
+                    <ol class="llista-blocs" id="demo" aria-labelledby="t-demo"></ol>
+                    <p class="qed" id="qed" hidden>∎</p>
+                </div>
+            </div>
+            <div id="feedback" class="feedback" aria-live="polite"></div>
+            <div class="accions" id="accions-ordenar"></div>
+            <p class="nota" id="teclat-ordenar"></p>
+        </section>
+
+        <section class="panell" id="escriure" role="tabpanel" aria-labelledby="tab-escriure" hidden>
+            <p class="instruccio" id="instr-escriure"></p>
+            <h3 id="t-revisa"></h3>
+            <ul class="guio" id="guio"></ul>
+            <div class="accions">
+                <button type="button" class="btn btn-principal" id="btn-model"></button>
+                <button type="button" class="btn" id="btn-imprimeix"></button>
+            </div>
+            <div id="zona-model" hidden>
+                <h3 id="t-model"></h3>
+                <p class="nota" id="model-nota"></p>
+                <div class="model" id="model"></div>
+                <p class="instruccio" id="i-despres"></p>
+            </div>
+            <h3 id="t-pistes"></h3>
+            <ul class="pistes" id="pistes" aria-live="polite"></ul>
+            <div class="accions">
+                <button type="button" class="btn" id="btn-pista"></button>
+            </div>
+        </section>
+        <p class="nota" id="sense-codi"></p>
+    </main>
+    <div id="fantasma" class="fantasma bloc" aria-hidden="true" hidden></div>
+
+    <footer class="peu">
+        <p>
+            Material desenvolupat per David Arso Civil per al Departament de Matemàtiques de l’INS Miquel Tarradell.
+            Contingut sota CC BY-NC-SA 4.0, codi sota llicència MIT. <a href="LLICENCIA.md">Llicència</a>.
+            Fórmules amb KaTeX (llicència MIT).
+        </p>
+    </footer>
+
+    <script src="vendor/katex-0.16.11/katex.min.js"></script>
+    <script src="data/teoremes/angles-triangle.js?v=1f340a68"></script>
+    <script src="data/teoremes/pitagores.js?v=143690d3"></script>
+    <script src="data/teoremes/senars.js?v=a340ad0c"></script>
+    <script src="data/teoremes/gauss.js?v=eb2667ae"></script>
+    <script src="data/teoremes/quadrat-suma.js?v=dda1e6fa"></script>
+    <script src="data/teoremes/quadrat-diferencia.js?v=989183a5"></script>
+    <script src="data/teoremes/diferencia-quadrats.js?v=39509fe3"></script>
+    <script src="data/teoremes/parell.js?v=0a163e1a"></script>
+    <script src="data/teoremes/arrel-de-2.js?v=8f0b3321"></script>
+    <script src="data/teoremes/infinits-primers.js?v=20a49572"></script>
+    <script src="data/teoremes/dos-n.js?v=3b54fed5"></script>
+    <script src="data/teoremes/suma-geometrica.js?v=beaea716"></script>
+    <script src="data/teoremes/suma-cubs.js?v=b68af208"></script>
+    <script src="data/teoremes/mitjanes.js?v=08ab5162"></script>
+    <script src="data/teoremes/derivada-x2.js?v=a380823a"></script>
+    <script src="data/teoremes/bolzano.js?v=a3ff0ec1"></script>
+    <script src="js/motor/atzar.js?v=1f073c53"></script>
+    <script src="js/motor/text.js?v=3504051f"></script>
+    <script src="js/motor/blocs.js?v=5ac4ac72"></script>
+    <script src="js/motor/figures.js?v=ce8a50f5"></script>
+    <script src="js/ui/textos.js?v=83637620"></script>
+    <script src="js/ui/comu.js?v=3c05509c"></script>
+    <script src="js/ui/ordenar.js?v=2d095d3c"></script>
+    <script src="js/ui/teorema.js?v=c05ec20e"></script>
+</body>
+</html>

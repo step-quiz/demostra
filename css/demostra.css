@@ -1,0 +1,672 @@
+/*
+============================================================================
+PROJECTE: demostra (Step Quiz, vanilla JS)
+FITXER: css/demostra.css
+ROL: Estils de les dues pàgines (index.html i teorema.html): capçalera, llista
+     de teoremes, pestanyes Veure / Ordenar / Escriure, peces de la
+     demostració, pistes, figures (classes .f-*), mode projector i impressió.
+DEPENDÈNCIES: css/tokens.css (es carrega abans); vendor/katex-0.16.11/katex.min.css.
+============================================================================
+*/
+* {
+    box-sizing: border-box;
+}
+html {
+    -webkit-text-size-adjust: 100%;
+}
+body {
+    margin: 0;
+    padding: 12px 16px 32px;
+    font-family: var(--lletra);
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--fons);
+}
+button,
+input,
+select {
+    font: inherit;
+}
+[hidden] {
+    display: none !important;
+}
+.sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}
+.katex {
+    font-size: 1.08em;
+}
+
+/* ── Capçalera ─────────────────────────────────────────────────────────── */
+.capcalera,
+.principal,
+.peu {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.capcalera {
+    margin-bottom: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px 16px;
+}
+.capcalera h1 {
+    margin: 0;
+    font-size: 1.5em;
+    color: var(--primari-fosc);
+}
+.capcalera h1 a,
+.capcalera > a {
+    color: inherit;
+    text-decoration: none;
+}
+.capcalera > a {
+    color: var(--primari-fosc);
+    font-weight: 600;
+}
+
+/* ── Panells i botons ──────────────────────────────────────────────────── */
+.panell {
+    background: var(--panell);
+    border: 1px solid var(--vora-panell);
+    border-radius: var(--radi);
+    box-shadow: var(--ombra);
+    padding: 14px;
+    margin-bottom: 14px;
+    min-width: 0;
+}
+.panell h2 {
+    margin: 0 0 8px;
+    font-size: 1.2em;
+}
+.panell h3 {
+    margin: 14px 0 6px;
+    font-size: 1em;
+}
+.nota {
+    color: var(--text-suau);
+    font-size: 0.92em;
+    margin: 6px 0;
+}
+.instruccio {
+    font-weight: 600;
+    margin: 8px 0;
+}
+.accions,
+.fila {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+.btn {
+    min-height: 44px;
+    padding: 8px 16px;
+    border: 2px solid var(--primari);
+    border-radius: 8px;
+    background: var(--panell);
+    color: var(--primari-fosc);
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-principal,
+.btn[aria-pressed='true'] {
+    background: var(--primari);
+    color: var(--panell);
+}
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.btn-petit {
+    min-height: 36px;
+    padding: 4px 10px;
+    font-size: 0.9em;
+}
+.btn:focus-visible,
+a:focus-visible,
+input:focus-visible,
+.bloc:focus-visible,
+.pestanya:focus-visible,
+.forat:focus-visible {
+    outline: 3px solid var(--info);
+    outline-offset: 2px;
+}
+
+/* ── Índex ─────────────────────────────────────────────────────────────── */
+.filtres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 12px;
+}
+.curs h2 {
+    margin: 18px 0 8px;
+    font-size: 1.15em;
+    color: var(--text-suau);
+}
+.targetes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.targeta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    height: 100%;
+    padding: 12px 14px;
+    background: var(--panell);
+    border: 1px solid var(--vora-panell);
+    border-radius: var(--radi);
+    box-shadow: var(--ombra);
+    color: var(--text);
+    text-decoration: none;
+}
+.targeta:hover {
+    border-color: var(--primari);
+}
+.targeta h3 {
+    margin: 0;
+    font-size: 1.05em;
+    color: var(--primari-fosc);
+}
+.targeta .enunciat-petit {
+    margin: 0;
+    font-size: 0.95em;
+}
+.esglaons {
+    display: flex;
+    gap: 6px;
+    margin-top: auto;
+    font-size: 0.85em;
+    color: var(--text-suau);
+}
+.esglao {
+    padding: 1px 8px;
+    border: 1px solid var(--vora-panell);
+    border-radius: 999px;
+}
+.esglao.fet {
+    background: var(--be-fons);
+    border-color: var(--be);
+    color: var(--be);
+}
+.etiqueta {
+    font-size: 0.8em;
+    color: var(--text-suau);
+}
+
+/* ── Teorema ───────────────────────────────────────────────────────────── */
+.enunciat {
+    font-size: 1.2em;
+    margin: 4px 0 0;
+}
+.pestanyes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 12px;
+}
+.pestanya {
+    min-height: 44px;
+    padding: 6px 16px;
+    border: 1px solid var(--vora-panell);
+    border-radius: 999px;
+    background: var(--panell);
+    color: var(--text);
+    cursor: pointer;
+}
+.pestanya[aria-selected='true'] {
+    background: var(--primari);
+    border-color: var(--primari);
+    color: var(--panell);
+    font-weight: 600;
+}
+.pestanya .fet {
+    margin-left: 4px;
+}
+
+/* Veure */
+.veure {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 14px;
+    align-items: start;
+}
+@media (max-width: 760px) {
+    .veure {
+        grid-template-columns: 1fr;
+    }
+}
+.marc-figura {
+    background: var(--f-fons);
+    border: 1px solid var(--vora-panell);
+    border-radius: 8px;
+    padding: 6px;
+}
+.figura {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 70vh;
+}
+.control {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) 3em;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0 0;
+}
+.control input[type='range'] {
+    width: 100%;
+    min-height: 44px;
+    accent-color: var(--primari);
+}
+.control output {
+    font-weight: 700;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+.panells {
+    margin: 0;
+    padding: 0 0 0 1.4em;
+}
+.panells li {
+    margin: 0 0 10px;
+}
+.panells li.actual {
+    font-weight: 600;
+}
+.prova-primer {
+    border-left: 4px solid var(--primari);
+    padding: 6px 10px;
+    background: var(--primari-clar);
+    border-radius: 0 8px 8px 0;
+}
+.credit {
+    font-size: 0.88em;
+    color: var(--text-suau);
+    font-style: italic;
+}
+
+/* Ordenar */
+.columnes {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 14px;
+    align-items: start;
+}
+@media (max-width: 760px) {
+    .columnes {
+        grid-template-columns: 1fr;
+    }
+}
+.columna {
+    min-height: 120px;
+    padding: 10px;
+    border: 2px dashed var(--vora-panell);
+    border-radius: var(--radi);
+}
+.columna.sobre {
+    border-color: var(--primari);
+    background: var(--primari-clar);
+}
+.columna h3 {
+    margin: 0 0 8px;
+    font-size: 1em;
+}
+.llista-blocs {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.bloc {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 6px 10px;
+    background: var(--panell);
+    border: 2px solid var(--vora-panell);
+    border-radius: 8px;
+    cursor: grab;
+    touch-action: manipulation; /* amb el dit, la peça es pot tocar i la pàgina es desplaça */
+    user-select: none;
+    -webkit-user-select: none;
+}
+.nansa-bloc {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    min-height: 36px;
+    color: var(--text-suau);
+    font-size: 1.2em;
+    touch-action: none; /* només la nansa arrossega amb el dit */
+    cursor: grab;
+}
+.bloc .text-bloc {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.bloc.triat {
+    border-color: var(--primari);
+    background: var(--primari-clar);
+}
+.bloc.malament {
+    border-color: var(--error);
+    background: var(--error-fons);
+}
+.bloc.bloc-cap {
+    font-weight: 700;
+    border-style: dashed;
+}
+.bloc.fix {
+    cursor: default;
+    background: var(--fons);
+}
+.bloc.arrossegant {
+    opacity: 0.4;
+}
+.bloc .botons {
+    display: flex;
+    gap: 2px;
+}
+.bloc .botons button {
+    min-width: 36px;
+    min-height: 36px;
+    border: 1px solid var(--vora-panell);
+    border-radius: 6px;
+    background: var(--panell);
+    color: var(--text);
+    cursor: pointer;
+}
+.forat {
+    width: 100%;
+    min-height: 32px;
+    border: 2px dashed var(--primari);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--primari-fosc);
+    font-size: 0.85em;
+    cursor: pointer;
+}
+.fantasma {
+    position: fixed;
+    z-index: 10;
+    max-width: 80vw;
+    pointer-events: none;
+    opacity: 0.9;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.25);
+}
+.nivells {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+}
+.demo-acabada .bloc {
+    cursor: default;
+}
+.qed {
+    text-align: right;
+    font-size: 1.3em;
+    margin: 6px 4px 0;
+}
+
+/* Escriure */
+.guio {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.guio li {
+    margin: 0 0 6px;
+}
+.guio label {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    min-height: 44px;
+    cursor: pointer;
+}
+.guio input {
+    width: 22px;
+    height: 22px;
+    margin-top: 3px;
+    flex: none;
+    accent-color: var(--primari);
+}
+.model ol {
+    margin: 0 0 6px;
+    padding-left: 1.6em;
+}
+.model li {
+    margin: 0 0 6px;
+}
+.model .cap-model {
+    font-weight: 700;
+    margin: 10px 0 4px;
+}
+.pistes {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.pistes li {
+    margin: 0 0 8px;
+    padding: 8px 10px;
+    border-left: 4px solid var(--info);
+    background: var(--info-fons);
+    border-radius: 0 8px 8px 0;
+}
+.pistes .nom-pista {
+    font-weight: 700;
+    margin-right: 6px;
+}
+.pistes .figura {
+    max-width: 280px;
+    margin-top: 6px;
+    background: var(--f-fons);
+}
+
+/* Retroacció */
+.feedback .fb {
+    margin: 8px 0;
+    padding: 8px 10px;
+    border-radius: 8px;
+}
+.fb-error {
+    background: var(--error-fons);
+    color: var(--error);
+}
+.fb-be {
+    background: var(--be-fons);
+    color: var(--be);
+}
+.fb-info {
+    background: var(--info-fons);
+    color: var(--info);
+}
+
+/* ── Figures (SVG de js/motor/figures.js) ──────────────────────────────── */
+.figura .f-a,
+.figura .f-b,
+.figura .f-c,
+.figura .f-d,
+.figura .f-tri,
+.figura .f-buit,
+.figura .f-solapa,
+.figura .f-forat {
+    stroke: var(--f-linia);
+    stroke-width: 1.2;
+}
+.f-a {
+    fill: var(--f-a);
+}
+.f-b {
+    fill: var(--f-b);
+}
+.f-c {
+    fill: var(--f-c);
+}
+.f-d {
+    fill: var(--f-d);
+}
+.f-trans {
+    fill-opacity: 0.7;
+}
+.f-cel {
+    stroke-width: 1;
+}
+.f-tri {
+    fill: var(--f-d);
+}
+.f-buit {
+    fill: none;
+    stroke-dasharray: 5 4;
+}
+.f-solapa {
+    fill: var(--f-accent);
+    fill-opacity: 0.55;
+}
+.f-forat {
+    fill: var(--f-fons);
+    stroke: var(--f-accent);
+    stroke-width: 2.5;
+    stroke-dasharray: 6 4;
+}
+.f-marc {
+    fill: none;
+    stroke: var(--f-feble);
+    stroke-dasharray: 4 4;
+}
+.f-contorn {
+    fill: none;
+    stroke: var(--f-linia);
+    stroke-width: 2.2;
+    stroke-linejoin: round;
+}
+.f-tall,
+.f-radi {
+    stroke: var(--f-linia);
+    stroke-width: 1.5;
+    stroke-dasharray: 6 4;
+}
+.f-paral {
+    stroke: var(--f-accent);
+    stroke-width: 2;
+}
+.f-eix {
+    stroke: var(--f-feble);
+    stroke-width: 1.5;
+}
+.f-corba {
+    fill: none;
+    stroke: var(--f-linia);
+    stroke-width: 2.5;
+}
+.f-secant {
+    stroke: var(--f-accent);
+    stroke-width: 2.2;
+}
+.f-tangent {
+    stroke: var(--info);
+    stroke-width: 2.2;
+    stroke-dasharray: 8 5;
+}
+.f-segment {
+    stroke: var(--f-accent);
+    stroke-width: 3.5;
+}
+.f-interval {
+    stroke: var(--f-accent);
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+.f-punt-a {
+    fill: var(--f-linia);
+}
+.f-punt-b {
+    fill: var(--f-accent);
+}
+.f-text {
+    fill: var(--f-linia);
+    font-size: 15px;
+    font-family: var(--lletra);
+}
+
+/* ── Mode projector (Veure) ────────────────────────────────────────────── */
+body.projector {
+    font-size: 24px;
+}
+body.projector .capcalera,
+body.projector .pestanyes,
+body.projector .peu,
+body.projector #cap-teorema .etiqueta {
+    display: none;
+}
+body.projector .principal {
+    max-width: none;
+}
+body.projector .veure {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+}
+body.projector .figura {
+    max-height: 80vh;
+}
+
+.peu {
+    margin-top: 18px;
+    color: var(--text-suau);
+    font-size: 0.85em;
+}
+.peu a {
+    color: inherit;
+}
+
+/* ── Impressió: el teorema i la demostració model, negre sobre blanc ───── */
+@page {
+    size: A4;
+    margin: 15mm;
+}
+@media print {
+    body {
+        background: #fff;
+        color: #000;
+        padding: 0;
+        font-size: 12pt;
+    }
+    .pestanyes,
+    .accions,
+    .peu,
+    .capcalera > a,
+    .control,
+    .filtres {
+        display: none !important;
+    }
+    .panell {
+        border: none;
+        box-shadow: none;
+        padding: 0;
+    }
+}

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ca">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Demostra-ho · Step Quiz</title>
+    <meta name="description" content="Demostracions matemàtiques en tres esglaons: veure-la, ordenar-la i escriure-la.">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="vendor/katex-0.16.11/katex.min.css">
+    <link rel="stylesheet" href="css/tokens.css?v=e3191254">
+    <link rel="stylesheet" href="css/demostra.css?v=57f9408a">
+</head>
+<body>
+    <header class="capcalera">
+        <h1>Demostra-ho</h1>
+    </header>
+
+    <main class="principal">
+        <p>
+            Cada teorema, en tres esglaons: <strong>Veure</strong> la idea en una figura que es mou,
+            <strong>Ordenar</strong> les línies d’una demostració (compte, n’hi ha de falses) i
+            <strong>Escriure</strong>-la tu, al paper.
+        </p>
+        <div class="filtres" id="filtres" role="group" aria-label="Curs"></div>
+        <div id="llista"></div>
+        <p class="nota" id="sense-codi"></p>
+    </main>
+
+    <footer class="peu">
+        <p>
+            Material desenvolupat per David Arso Civil per al Departament de Matemàtiques de l’INS Miquel Tarradell.
+            Contingut sota CC BY-NC-SA 4.0, codi sota llicència MIT. <a href="LLICENCIA.md">Llicència</a>.
+            Fórmules amb KaTeX (llicència MIT).
+        </p>
+    </footer>
+
+    <script src="vendor/katex-0.16.11/katex.min.js"></script>
+    <script src="data/teoremes/angles-triangle.js?v=1f340a68"></script>
+    <script src="data/teoremes/pitagores.js?v=143690d3"></script>
+    <script src="data/teoremes/senars.js?v=a340ad0c"></script>
+    <script src="data/teoremes/gauss.js?v=eb2667ae"></script>
+    <script src="data/teoremes/quadrat-suma.js?v=dda1e6fa"></script>
+    <script src="data/teoremes/quadrat-diferencia.js?v=989183a5"></script>
+    <script src="data/teoremes/diferencia-quadrats.js?v=39509fe3"></script>
+    <script src="data/teoremes/parell.js?v=0a163e1a"></script>
+    <script src="data/teoremes/arrel-de-2.js?v=8f0b3321"></script>
+    <script src="data/teoremes/infinits-primers.js?v=20a49572"></script>
+    <script src="data/teoremes/dos-n.js?v=3b54fed5"></script>
+    <script src="data/teoremes/suma-geometrica.js?v=beaea716"></script>
+    <script src="data/teoremes/suma-cubs.js?v=b68af208"></script>
+    <script src="data/teoremes/mitjanes.js?v=08ab5162"></script>
+    <script src="data/teoremes/derivada-x2.js?v=a380823a"></script>
+    <script src="data/teoremes/bolzano.js?v=a3ff0ec1"></script>
+    <script src="js/motor/text.js?v=3504051f"></script>
+    <script src="js/ui/textos.js?v=83637620"></script>
+    <script src="js/ui/comu.js?v=3c05509c"></script>
+    <script src="js/ui/index.js?v=8a036be4"></script>
+</body>
+</html>
